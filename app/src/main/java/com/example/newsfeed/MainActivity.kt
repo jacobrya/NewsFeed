@@ -12,7 +12,13 @@ import com.example.newsfeed.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private val adapter = PostAdapter()
-    private val imageIdList = listOf(R.drawable.post1,R.drawable.post1,R.drawable.post1,R.drawable.post1,R.drawable.post1)
+    private val imageUrlList = listOf(
+        "https://picsum.photos/400/300?random=1",
+        "https://picsum.photos/400/300?random=2",
+        "https://picsum.photos/400/300?random=3",
+        "https://picsum.photos/400/300?random=4",
+        "https://picsum.photos/400/300?random=5"
+    )
     private var index = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +38,9 @@ class MainActivity : AppCompatActivity() {
             rcView.adapter = adapter
             buttonAdd.setOnClickListener {
                 if(index>4) index = 0
-                val post = Post(imageIdList[index],"Post $index")
+                val post = Post(imageUrlList[index],"Post $index")
                 adapter.addPost(post)
-                index++
+                index = (index + 1) % imageUrlList.size
             }
         }
     }

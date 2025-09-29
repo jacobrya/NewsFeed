@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("com.github.bumptech.glide:glide:5.0.5")
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.cardview)
     testImplementation(libs.junit)

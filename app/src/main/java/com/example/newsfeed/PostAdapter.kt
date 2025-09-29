@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsfeed.databinding.PostItemBinding
 class PostAdapter(
 
@@ -32,7 +33,12 @@ class PostAdapter(
     class PostHolder(item: View) : RecyclerView.ViewHolder(item){
         val binding = PostItemBinding.bind(item)
         fun bind(post: Post) = with(binding){
-            im.setImageResource(post.imageUrl)
+            Glide.with(itemView.context)
+                .load(post.imageUrl)
+                .placeholder(R.drawable.ic_launcher_background)  // Пока грузится
+                .error(R.drawable.ic_launcher_foreground)  // Если ошибка
+                .centerCrop()  // Обрезка по центру
+                .into(im)
             tvTitle.text = post.description
 
 
