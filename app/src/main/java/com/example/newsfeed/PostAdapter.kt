@@ -30,16 +30,25 @@ class PostAdapter(
         return postList.size
     }
 
-    class PostHolder(item: View) : RecyclerView.ViewHolder(item){
+    inner class PostHolder(item: View) : RecyclerView.ViewHolder(item){
         val binding = PostItemBinding.bind(item)
         fun bind(post: Post) = with(binding){
             Glide.with(itemView.context)
                 .load(post.imageUrl)
-                .placeholder(R.drawable.ic_launcher_background)  // Пока грузится
-                .error(R.drawable.ic_launcher_foreground)  // Если ошибка
-                .centerCrop()  // Обрезка по центру
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground)
+                .centerCrop()
                 .into(im)
             tvTitle.text = post.description
+            btnLike.setImageResource(
+                if (post.isLiked) R.drawable.ic_heart_filled
+                else R.drawable.ic_heart_outline
+            )
+
+            btnLike.setOnClickListener {
+                post.isLiked = !post.isLiked
+                this@PostAdapter.notifyItemChanged(adapterPosition)
+            }
 
 
 
